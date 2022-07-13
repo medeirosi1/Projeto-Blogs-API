@@ -18,6 +18,11 @@ const categorieService = {
         const categorie = await db.Category.create({ name });
         return categorie;
     },
+
+    list: async () => {
+        const categories = await db.Category.findAll();
+        return categories;
+    },
 };
 
 module.exports = categorieService;
