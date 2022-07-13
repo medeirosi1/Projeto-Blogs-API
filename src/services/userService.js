@@ -43,6 +43,21 @@ const userService = {
   
       return token;
     },
+
+    findById: async (id) => {
+      const users = await db.User.findAll();
+      const notId = users.some((el) => Number(el.id) === Number(id));
+      console.log(notId);
+      if (!notId) {
+        const e = new Error('User does not exist');
+        e.name = 'NotFoundError';
+        throw e;
+      }
+      const user = await db.User.findByPk(id, {
+        attributes: { exclude: ['password'] },
+      });
+      return user;
+    },
 };
 
 module.exports = userService;
