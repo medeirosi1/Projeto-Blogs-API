@@ -37,6 +37,21 @@ const postService = {
         });
         return post;
     },
+    findById: async (id) => {
+        const blogPosts = await db.BlogPost.findAll();
+        const notId = blogPosts.some((el) => Number(el.id) === Number(id));
+        console.log(notId);
+        if (!notId) {
+          const e = new Error('Post does not exist');
+          e.name = 'NotFoundError';
+          throw e;
+        }
+        const postId = db.BlogPost.findByPk(id, {
+            include: [{ model: db.User, as: 'user', attributes: { exclude: ['password'] } }, 
+            { model: db.Category, as: 'categories' }],
+        });
+        return postId;
+    },
 };
 
 module.exports = postService;
