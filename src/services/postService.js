@@ -21,7 +21,7 @@ const postService = {
         return value;
     },
 
-    create: async ({ title, content, categoryId }, authorization) => {
+    create: async (title, content, categoryId, authorization) => {
         const { data: { id } } = validateToken(authorization);
         const userId = id;
         const allId = await db.BlogPost.findAll();
@@ -52,6 +52,10 @@ const postService = {
         });
         return postId;
     },
+    // updated: async ({ title, content }, authorization) => {
+    //     const { data: { id } } = validateToken(authorization);
+    //     console.log(id);
+    // },
 };
 
 module.exports = postService;

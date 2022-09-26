@@ -15,6 +15,7 @@ const jwtService = {
     }
     try {
       const data = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(data);
       return data;
     } catch (e) {
       const error = new Error('Expired or invalid token');
